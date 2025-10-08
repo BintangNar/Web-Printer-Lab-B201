@@ -1,6 +1,5 @@
 from pathlib import Path
 from fastapi.responses import JSONResponse
-import random
 import subprocess
 
 def print_pdf(file_path: str, copies: int = 1, color: bool = True):
