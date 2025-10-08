@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, Query
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 import shutil
 from pathlib import Path
 from app.utils.print import print_pdf
@@ -9,6 +9,8 @@ router = APIRouter()
 
 dirUPLOAD = Path("upload")
 dirUPLOAD.mkdir(exist_ok=True)
+processed_dir = Path("processed")
+processed_dir.mkdir(exist_ok=True)
 
 #upload
 @router.post("/uploadFile")
@@ -29,13 +31,17 @@ async def upload_file(file: UploadFile = File(...)):
 
 #print    
 @router.post("/printFile")
-async def print_file(filename:str = Query(...)):
+async def print_file(filename:str = Query(...),
+    copies : int = Query(1),
+    color : bool = Query(True),
+    pages : str = Query(None)
+    ):
     try:
         file_path = dirUPLOAD /filename
         if not file_path.exists():
             return JSONResponse(status_code=404, content={"message": "file not found"})
         
-        result = print_pdf(str(file_path),copies=1, color=True)
+        result = print_pdf(str(file_path),copies=copies, color=color, pages=pages)
         return {"filename": filename, "actions":{"print":result}}
     except Exception as e:
         return JSONResponse(status_code=500, content={"message":str(e)})
@@ -44,16 +50,40 @@ async def print_file(filename:str = Query(...)):
 @router.post("/mergeFile")
 async def merge(files: list[str] = Query(...)):
     try:
-        output = pdfprocessing.PDFmerge(files)
-        return {"merged_file": Path(output).name, "Path":f"/upload/{Path(output).name}"}
+        pdf_paths = [dirUPLOAD / f for f in files]
+        
+        output_path = processed_dir / "merged.pdf"
+        
+        pdfprocessing.PDFmerge(pdf_paths, output_path)
+        
+        return {
+            "merged_file": str(output_path),
+            "download_url": f"/download/{output_path.name}"
+        }
     except Exception as e:
-        return JSONResponse(status_code=500, content={"message":str(e)})
+        return JSONResponse(status_code=500, content={"message": str(e)})
 
 #split
 @router.post("/splitFile")
 async def split(filename: str = Query(...), start_page: int = Query(...), end_page: int = Query(...)):
     try:
-        output = pdfprocessing.PDFsplit(filename, start_page, end_page)
-        return {"split_file": Path(output).name, "path":f"/upload/{Path(output).name}"}
+        pdf_path = dirUPLOAD / filename
+
+        output_files = pdfprocessing.PDFsplit(pdf_path, [start_page, end_page])
+
+        downloads = [f"/download/{f.name}" for f in output_files]
+
+        return {
+            "split_files": [f.name for f in output_files],
+            "download_urls": downloads
+        }
     except Exception as e:
-        return JSONResponse(status_code=500, content={"message":str(e)})
+        return JSONResponse(status_code=500, content={"message": str(e)})
+
+#download
+@router.get("/download/{filename}")
+async def download_file(filename: str):
+    file_path = processed_dir / filename
+    if not file_path.exists():  # <-- corrected
+        return JSONResponse(status_code=404, content={"message":"file not found"})
+    return FileResponse(file_path, filename=filename)
