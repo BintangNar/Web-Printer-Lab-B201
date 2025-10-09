@@ -40,16 +40,10 @@ async def print_file(
     try:
         file_path = dirUPLOAD / filename
         if not file_path.exists():
-            return JSONResponse(status_code=404, content={"message": "File not found"})
-
-        pages = pages or ""
-
-        print(f"📄 Simulated print: {file_path.name}, Copies: {copies}, Color: {color}, Pages: {pages}")
-
-        result = {"status": "queued", "message": "Print job added to queue"}
-
+            return JSONResponse(status_code=404, content={"message": "file not found"})
+        
+        result = print_pdf(str(file_path), copies=copies, color=color, pages=pages)
         return {"filename": filename, "actions": {"print": result}}
-
     except Exception as e:
         return JSONResponse(status_code=500, content={"message": str(e)})
 
