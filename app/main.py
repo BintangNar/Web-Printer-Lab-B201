@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from app.routes.upload import router as upload_router
 from app.routes.queue import router as queue_router
 

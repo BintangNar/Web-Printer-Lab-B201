@@ -65,18 +65,20 @@ async def merge(files: list[str] = Query(...)):
 
 #split
 @router.post("/splitFile")
-async def split(filename: str = Query(...), start_page: int = Query(...), end_page: int = Query(...)):
+async def split_file(filename: str = Query(...), ranges: str = Query(...)):
     try:
-        pdf_path = dirUPLOAD / filename
+        file_path = dirUPLOAD / filename
+        if not file_path.exists():
+            return JSONResponse(status_code=404, content={"message": "file not found"})
 
-        output_files = pdfprocessing.PDFsplit(pdf_path, [start_page, end_page])
-
-        downloads = [f"/download/{f.name}" for f in output_files]
+        outputs = pdfprocessing.PDFsplit(file_path, ranges)
+        download_urls = [f"/download/{Path(o).name}" for o in outputs]
 
         return {
-            "split_files": [f.name for f in output_files],
-            "download_urls": downloads
+            "split_files": [o.name for o in outputs],
+            "download_urls": download_urls
         }
+
     except Exception as e:
         return JSONResponse(status_code=500, content={"message": str(e)})
 
