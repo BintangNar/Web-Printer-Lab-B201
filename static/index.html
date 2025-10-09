@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printer Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';</script>
+</head>
+<header>
+    <!-- LOGO DITAMBAHKAN DI SINI -->
+    <img src="/static/b201.png" alt="Company Logo" class="header-logo">
+        
+    <h1>Printer Dashboard</h1>
+    <p>Solusi lengkap untuk semua kebutuhan dokumen Anda.</p>
+</header>
+<body>
+    
+    <!-- Menu Navigasi Utama -->
+    <nav>
+        <a href="#home" class="nav-link active">Homepage</a>
+        <a href="#print" class="nav-link">Print PDF</a>
+        <a href="#merge" class="nav-link">Merge PDF</a>
+        <a href="#split" class="nav-link">Split PDF</a>
+    </nav>
+
+    <main>
+        <!-- Halaman 1: Homepage -->
+        <div id="page-home" class="page">
+            <section class="card text-center">
+                <h2>Selamat Datang!</h2>
+                <p>Pilih salah satu fitur di bawah ini untuk memulai.</p>
+                <div class="homepage-features">
+                    <a href="#print" class="feature-card-link">
+                        <h3>Cetak Dokumen</h3>
+                        <p>Atur halaman, warna, dan cetak PDF Anda dengan mudah.</p>
+                    </a>
+                    <a href="#merge" class="feature-card-link">
+                        <h3>Gabungkan PDF</h3>
+                        <p>Satukan beberapa file PDF menjadi satu dokumen.</p>
+                    </a>
+                    <a href="#split" class="feature-card-link">
+                        <h3>Pisahkan PDF</h3>
+                        <p>Ekstrak halaman atau rentang tertentu dari file PDF.</p>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Halaman 2: Fitur Print -->
+        <div id="page-print" class="page" style="display: none;">
+            <section class="card" id="upload-print">
+                <h2>1. Upload & Print</h2>
+                <p class="file-restriction">Hanya file PDF yang diizinkan.</p>
+                <div class="input-group">
+                    <input type="file" id="file-upload" class="file-input" accept=".pdf" multiple>
+                    <label for="file-upload" class="file-label">Pilih File PDF</label>
+                </div>
+                <div id="print-pdf-info" class="pdf-info-text"></div>
+                <div class="print-options">
+                    <div class="option-group"><label class="option-title">Mode Warna</label><div class="radio-group"><input type="radio" id="color-mode" name="print-color" value="Warna" checked><label for="color-mode">Warna</label><input type="radio" id="bw-mode" name="print-color" value="Hitam Putih"><label for="bw-mode">Hitam Putih</label></div></div>
+                    <div class="option-group"><label class="option-title">Rentang Halaman</label><div class="page-range-group"><input type="number" id="page-from" class="page-input" placeholder="Dari" min="1"><span>-</span><input type="number" id="page-to" class="page-input" placeholder="Sampai" min="1"></div></div>
+                </div>
+                <button class="action-btn" id="print-btn">Print</button>
+                <div class="print-queue-container"><h2>Print Queue</h2><ul id="queue-list"></ul></div>
+            </section>
+        </div>
+
+        <!-- Halaman 3: Fitur Merge -->
+        <div id="page-merge" class="page" style="display: none;">
+            <section class="card" id="merge-pdf">
+                <div class="merge-header"><h2>Gabungkan PDF</h2><div class="merge-controls"><button id="sort-files-btn" class="merge-control-btn" title="Urutkan file">A-Z ↓</button><button id="add-more-files-btn" class="merge-control-btn" title="Tambahkan file">+</button></div></div>
+                <div id="merge-pdf-info" class="pdf-info-text"></div>
+                <p>Seret dan jatuhkan file untuk mengubah urutan.</p>
+                <div id="merge-file-list-container">
+                    <ul id="merge-file-list"></ul>
+                    <div id="merge-drop-area"><p>Pilih atau jatuhkan file PDF di sini</p><button id="select-files-btn" class="action-btn">Pilih File</button></div>
+                </div>
+                <button id="merge-btn" class="action-btn merge-action-btn" disabled>Gabungkan PDF</button>
+                <div id="download-area"></div>
+                <input type="file" id="pdf-merge-input" accept=".pdf" multiple style="display: none;">
+            </section>
+        </div>
+
+        <!-- Halaman 4: Fitur Split -->
+        <div id="page-split" class="page" style="display: none;">
+            <section class="card" id="split-pdf">
+                <h2>Split PDF</h2>
+                <p>Ekstrak satu atau beberapa rentang halaman dari file PDF Anda.</p>
+                <div class="input-group"><input type="file" id="pdf-split" class="file-input" accept=".pdf"><label for="pdf-split" class="file-label">Pilih Satu File PDF</label></div>
+                <div id="pdf-info" class="pdf-info-text"></div>
+                <div class="split-options">
+                    <label class="option-title">Ekstrak Halaman:</label>
+                    <div id="split-ranges-container"></div>
+                    <button id="add-range-btn" class="add-range-btn">+ Tambahkan Rentang</button>
+                </div>
+                <button id="split-btn" class="action-btn split-action-btn" disabled>Split PDF</button>
+                <div id="split-download-area"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Printer Dashboard | Lab B201 Teknik Komputer ITS</p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

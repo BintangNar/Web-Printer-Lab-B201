@@ -31,38 +31,48 @@ async def upload_file(file: UploadFile = File(...)):
 
 #print    
 @router.post("/printFile")
-async def print_file(filename:str = Query(...),
-    copies : int = Query(1),
-    color : bool = Query(True),
-    pages : str = Query(None)
-    ):
+async def print_file(
+    filename: str = Query(...),
+    copies: int = Query(1),
+    color: bool = Query(True),
+    pages: str = Query(None)
+):
     try:
-        file_path = dirUPLOAD /filename
+        file_path = dirUPLOAD / filename
         if not file_path.exists():
-            return JSONResponse(status_code=404, content={"message": "file not found"})
-        
-        result = print_pdf(str(file_path),copies=copies, color=color, pages=pages)
-        return {"filename": filename, "actions":{"print":result}}
+            return JSONResponse(status_code=404, content={"message": "File not found"})
+
+        pages = pages or ""
+
+        print(f"📄 Simulated print: {file_path.name}, Copies: {copies}, Color: {color}, Pages: {pages}")
+
+        result = {"status": "queued", "message": "Print job added to queue"}
+
+        return {"filename": filename, "actions": {"print": result}}
+
     except Exception as e:
-        return JSONResponse(status_code=500, content={"message":str(e)})
+        return JSONResponse(status_code=500, content={"message": str(e)})
+
     
 #merge
 @router.post("/mergeFile")
-async def merge(files: list[str] = Query(...)):
+async def merge(data: dict):
     try:
+        files = data.get("files", [])
         pdf_paths = [dirUPLOAD / f for f in files]
-        
-        output_path = processed_dir / "merged.pdf"
-        
-        pdfprocessing.PDFmerge(pdf_paths, output_path)
-        
+
+        output_path = pdfprocessing.PDFmerge(pdf_paths, "merged.pdf")
+
         return {
             "merged_file": str(output_path),
             "download_url": f"/download/{output_path.name}"
         }
-    except Exception as e:
-        return JSONResponse(status_code=500, content={"message": str(e)})
 
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(status_code=500, content={"message": str(e)})
+    
 #split
 @router.post("/splitFile")
 async def split_file(filename: str = Query(...), ranges: str = Query(...)):

@@ -1,0 +1,271 @@
+/* Menu Navigasi */
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    padding: 0;
+    margin: 0 auto 25px auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 900px;
+    overflow: hidden;
+}
+
+.nav-link {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: bold;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+/* Homepage Styles */
+.text-center {
+    text-align: center;
+}
+
+.homepage-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.feature-card-link {
+    display: block;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 25px 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    color: var(--primary-color);
+}
+
+.feature-card-link h3 {
+    margin-top: 0;
+}
+
+.feature-card-link p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* (Sisa kode CSS Anda yang sudah ada tetap di bawah ini) */
+
+/* General Body Styles */
+:root {
+    --primary-color: #a60000;
+    --secondary-color: #6c757d;
+    --background-color: #000000;
+    --card-background: #ffffff;
+    --text-color: #333;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--card-background);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: var(--card-background);
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--box-shadow);
+}
+
+.card h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: var(--secondary-color); 
+    font-size: 0.95em;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.file-input { display: none; }
+
+.file-label {
+    background-color: var(--secondary-color);
+    color: car(--text-color);
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.file-label:hover { background-color: #5a6268; }
+
+.action-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.file-restriction {
+    font-size: 0.85em; color: #555; background-color: #e9ecef;
+    padding: 8px 12px; border-radius: 5px; margin-top: 5px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.pdf-info-text {
+    font-size: 0.9em; color: var(--primary-color); font-weight: bold;
+    text-align: center; margin-top: 10px; min-height: 1.2em;
+}
+
+.print-options {
+    margin: 20px 0; display: flex; gap: 30px; flex-wrap: wrap;
+    border-top: 1px solid #eee; padding-top: 20px;
+}
+
+.header-logo {
+    width: 100px;  /* Anda bisa sesuaikan ukurannya di sini */
+    height: auto;
+    margin-bottom: 15px; /* Memberi jarak antara logo dan judul di bawahnya */
+}
+
+/* 2. Menyesuaikan judul agar lebih rapat dengan logo */
+header h1 {
+    margin-top: 0; /* Menghapus jarak atas default pada judul */
+}
+.option-group { display: flex; flex-direction: column; }
+.option-title { font-weight: bold; margin-bottom: 8px; color: var(--secondary-color); }
+.radio-group { display: flex; align-items: center; gap: 15px; }
+.radio-group input[type="radio"] { margin-right: 5px; accent-color: var(--primary-color); }
+.page-range-group { display: flex; align-items: center; gap: 8px; }
+.page-input { width: 70px; padding: 8px; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
+
+.print-queue-container { margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; }
+.print-queue-container h2 { margin: 0 0 15px 0; padding: 0; border-bottom: none; font-size: 1.2em; color: var(--secondary-color); }
+#queue-list { list-style-type: none; padding: 0; }
+#queue-list li { background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-bottom: 8px; border-left: 4px solid var(--secondary-color); }
+.empty-message { color: #888; font-style: italic; text-align: center; border-left: 4px solid #eee !important; }
+
+#merge-pdf .merge-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+#merge-pdf .merge-controls { display: flex; gap: 10px; }
+#merge-pdf .merge-control-btn {
+    background-color: #e9ecef; border: 1px solid #ccc; border-radius: 50%;
+    width: 36px; height: 36px; font-size: 0.8em; font-weight: bold;
+    cursor: pointer; transition: background-color 0.2s, transform 0.2s; color: var(--secondary-color);
+}
+#merge-pdf .merge-control-btn:hover { background-color: #dde2e7; transform: scale(1.1); }
+
+#merge-file-list-container {
+    background-color: #f9f9f9; border: 2px dashed #ccc; border-radius: var(--border-radius);
+    padding: 15px; min-height: 150px; margin-top: 15px; margin-bottom: 15px; position: relative;
+    transition: border-color 0.3s;
+}
+#merge-drop-area { text-align: center; padding: 30px 0; color: #888; }
+#merge-file-list { list-style-type: none; padding: 0; margin: 0; }
+.merge-file-item {
+    background-color: #fff; border: 1px solid #ddd; border-radius: 5px;
+    padding: 10px 15px; margin-bottom: 8px; display: flex; justify-content: space-between;
+    align-items: center; cursor: grab; user-select: none; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.merge-file-item.dragging { opacity: 0.5; background: #cce5ff; }
+#merge-file-list-container.drag-over { border-color: var(--primary-color); }
+.file-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 15px; }
+.remove-file-btn { background: none; border: none; font-size: 1.4em; font-weight: bold; color: #aaa; cursor: pointer; padding: 0 5px; }
+.remove-file-btn:hover { color: #a60000; }
+
+.merge-action-btn { width: 100%; margin-top: 10px; padding: 12px; font-size: 1.1em; }
+.merge-action-btn:disabled, .split-action-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+.merge-action-btn:disabled:hover, .split-action-btn:disabled:hover { background-color: #ccc; transform: none; }
+
+#download-area, #split-download-area { margin-top: 15px; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+#download-area a, #split-download-area a {
+    display: inline-block; background-color: #0056b3; color: white; padding: 10px 20px;
+    text-decoration: none; font-weight: bold; border-radius: var(--border-radius); transition: background-color 0.3s;
+}
+#download-area a:hover, #split-download-area a:hover { background-color: #0056b3; }
+
+.split-options { margin: 20px 0; padding-top: 20px; border-top: 1px solid #eee; }
+#split-ranges-container { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+.range-block { background-color: #f9f9f9; border: 1px solid #e0e0e0; border-radius: var(--border-radius); padding: 15px; }
+.range-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: bold; color: var(--secondary-color); }
+.remove-range-btn { background: none; border: none; font-size: 1.5em; color: #aaa; cursor: pointer; line-height: 1; }
+.remove-range-btn:hover { color: #a60000; }
+.range-inputs { display: flex; gap: 10px; align-items: center; }
+.range-input-group { display: flex; border: 1px solid #ccc; border-radius: 5px; overflow: hidden; flex-grow: 1; }
+.range-input-group label { padding: 8px 12px; background-color: #e9ecef; font-size: 0.9em; color: #495057; border-right: 1px solid #ccc; }
+.range-input-group input[type="number"] { width: 100%; border: none; padding: 8px; text-align: center; }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; 
+appearance: none;
+-webkit-appearance: none;}
+
+.add-range-btn {
+    width: 100%; margin-top: 15px; padding: 10px; background-color: transparent; border: 2px solid #a60000;
+    color: #a60000; font-weight: bold; border-radius: var(--border-radius); cursor: pointer; transition: all 0.3s;
+}
+.add-range-btn:hover { background-color: #a60000; color: white; }
+.split-action-btn { width: 100%; margin-top: 10px; }
+
+footer { text-align: center; margin-top: 40px; color: #888; }
